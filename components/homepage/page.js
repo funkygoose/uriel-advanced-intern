@@ -1,10 +1,28 @@
-import React from "react";
+'use client'
+
+import React, { useEffect, useState } from "react";
 import { AiFillFileText, AiFillAudio, AiFillBulb } from "react-icons/ai"
 import { BsStarFill, BsStarHalf } from "react-icons/bs"
 import { BiCrown } from "react-icons/bi";
 import { RiLeafLine } from "react-icons/ri";
 import Link from "next/link";
+import Image from "next/image";
+import LoginModal from "../modals/loginModal/page";
 export default function HomePage() {
+
+    const [greenText, setGreenText] = useState(0);
+    useEffect(() => {
+        const delayedFunction = () => {
+          setGreenText(greenText => (greenText + 1) % 6)
+        };
+    
+        const timeoutId = setTimeout(delayedFunction, 4000);
+    
+        return () => {
+          clearTimeout(timeoutId);
+        };
+      }, [greenText]);
+
 return ( 
     
   <div className="body">
@@ -12,7 +30,7 @@ return (
     <nav className="nav">
       <div className="nav__wrapper">
         <figure className="nav__img--mask">
-          <img className="nav__img" src="logo.png" alt="logo" />
+          <Image className="nav__img" src={"/assets/logo.png"} width={495} height={114} alt="logo" />
         </figure>
         <ul className="nav__list--wrapper">
           <li className="nav__list nav__list--login">Login</li>
@@ -39,10 +57,10 @@ return (
                 <br className="remove--tablet" />
                 and even people who don’t like to read.
               </div>
-              <button className="btn home__cta--btn">Login</button>
+              <LoginModal/>
             </div>
             <figure className="landing__image--mask">
-              <img src="" alt="landing" />
+              <Image src={"/assets/landing.png"} width={400} height={379} alt="landing" />
             </figure>
           </div>
         </div>
@@ -83,14 +101,14 @@ return (
           </div>
           <div className="statistics__wrapper">
             <div className="statistics__content--header">
-              <div className="statistics__heading">Enhance your knowledge</div>
-              <div className="statistics__heading">Achieve greater success</div>
-              <div className="statistics__heading">Improve your health</div>
-              <div className="statistics__heading">
+              <div className={`statistics__heading ${greenText === 0 && `statistics__heading--active`}`}>Enhance your knowledge</div>
+              <div className={`statistics__heading ${greenText === 1 && `statistics__heading--active`}`}>Achieve greater success</div>
+              <div className={`statistics__heading ${greenText === 2 && `statistics__heading--active`}`}>Improve your health</div>
+              <div className={`statistics__heading ${greenText === 3 && `statistics__heading--active`}`}>
                 Develop better parenting skills
               </div>
-              <div className="statistics__heading">Increase happiness</div>
-              <div className="statistics__heading">
+              <div className={`statistics__heading ${greenText === 4 && `statistics__heading--active`}`}>Increase happiness</div>
+              <div className={`statistics__heading ${greenText === 5 && `statistics__heading--active`}`}>
                 Be the best version of yourself!
               </div>
             </div>
@@ -144,12 +162,12 @@ return (
             <div
               className="statistics__content--header statistics__content--header-second"
             >
-              <div className="statistics__heading">Expand your learning</div>
-              <div className="statistics__heading">Accomplish your goals</div>
-              <div className="statistics__heading">Strengthen your vitality</div>
-              <div className="statistics__heading">Become a better caregiver</div>
-              <div className="statistics__heading">Improve your mood</div>
-              <div className="statistics__heading">Maximize your abilities</div>
+              <div className={`statistics__heading ${greenText === 0 && `statistics__heading--active`}`}>Expand your learning</div>
+              <div className={`statistics__heading ${greenText === 1 && `statistics__heading--active`}`}>Accomplish your goals</div>
+              <div className={`statistics__heading ${greenText === 2 && `statistics__heading--active`}`}>Strengthen your vitality</div>
+              <div className={`statistics__heading ${greenText === 3 && `statistics__heading--active`}`}>Become a better caregiver</div>
+              <div className={`statistics__heading ${greenText === 4 && `statistics__heading--active`}`}>Improve your mood</div>
+              <div className={`statistics__heading ${greenText === 5 && `statistics__heading--active`}`}>Maximize your abilities</div>
             </div>
           </div>
         </div>
@@ -164,7 +182,9 @@ return (
               <div className="review__header">
                 <div className="review__name">Hanna M.</div>
                 <div className="review__stars">
-                  <BsStarFill />
+                {Array(5).fill().map((_, index) => (
+                    <BsStarFill key={index}/>
+                ))}
                 </div>
               </div>
               <div className="review__body">
@@ -177,12 +197,14 @@ return (
               <div className="review__header">
                 <div className="review__name">David B.</div>
                 <div className="review__stars">
-                  <BsStarFill />
+                {Array(5).fill().map((_, index) => (
+                    <BsStarFill key={index}/>
+                ))}
                 </div>
               </div>
               <div className="review__body">
                 I love this app! It provides
-                <b>concise and accurate summaries</b> of books in a way that is
+                <b> concise and accurate summaries</b> of books in a way that is
                 easy to understand. It's also very user-friendly and intuitive.
               </div>
             </div>
@@ -190,7 +212,9 @@ return (
               <div className="review__header">
                 <div className="review__name">Nathan S.</div>
                 <div className="review__stars">
-                  <BsStarFill />
+                {Array(5).fill().map((_, index) => (
+                    <BsStarFill key={index}/>
+                ))}
                 </div>
               </div>
               <div className="review__body">
@@ -204,12 +228,14 @@ return (
               <div className="review__header">
                 <div className="review__name">Ryan R.</div>
                 <div className="review__stars">
-                  <BsStarFill />
+                {Array(5).fill().map((_, index) => (
+                    <BsStarFill key={index}/>
+                ))}
                 </div>
               </div>
               <div className="review__body">
                 If you're a busy person who
-                <b>loves reading but doesn't have the time</b> to read every
+                <b> loves reading but doesn't have the time</b> to read every
                 book in full, this app is for you! The summaries are thorough
                 and provide a great overview of the book's content.
               </div>
