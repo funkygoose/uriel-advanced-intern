@@ -7,10 +7,13 @@ import { BiCrown } from "react-icons/bi";
 import { RiLeafLine } from "react-icons/ri";
 import Link from "next/link";
 import Image from "next/image";
-import LoginModal from "../modals/loginModal/page";
+import LoginModal from "../modals/loginmodal/page";
+import { openLoginModal } from "@/lib/modalSlice/page";
+import { useDispatch } from "react-redux";
 export default function HomePage() {
 
     const [greenText, setGreenText] = useState(0);
+    const dispatch = useDispatch();
     useEffect(() => {
         const delayedFunction = () => {
           setGreenText(greenText => (greenText + 1) % 6)
@@ -33,7 +36,7 @@ return (
           <Image className="nav__img" src={"/assets/logo.png"} width={495} height={114} alt="logo" />
         </figure>
         <ul className="nav__list--wrapper">
-          <li className="nav__list nav__list--login">Login</li>
+          <li className="nav__list nav__list--login" onClick={() => dispatch(openLoginModal())}>Login</li>
           <li className="nav__list nav__list--mobile">About</li>
           <li className="nav__list nav__list--mobile">Contact</li>
           <li className="nav__list nav__list--mobile">Help</li>
@@ -242,7 +245,7 @@ return (
             </div>
           </div>
           <div className="reviews__btn--wrapper">
-            <button className="btn home__cta--btn">Login</button>
+            <button className="btn home__cta--btn" onClick={() => dispatch(openLoginModal())}>Login</button>
           </div>
         </div>
       </div>
