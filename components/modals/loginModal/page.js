@@ -43,7 +43,7 @@ export default function LoginModal() {
         className="flex justify-center items-center"
       >
         
-        <div className={`relative w-[400px] h-[550px] bg-white md:w-[400px] md:h-[550px] rounded-lg ${signup ? 'h-[450px]' : ''}`}>
+        <div className={`relative w-[400px] h-[550px] bg-white rounded-lg ${signup ? 'h-[401px] w-[400px]' : ''}`}>
 
           <div className="flex justify-center items-center mt-10 px-4 w-full">
             <h2 className="font-bold text-xl">
@@ -65,7 +65,7 @@ export default function LoginModal() {
             flex justify-center items-center
 
             text-white w-[85%] mt-5 text-mg p-2 
-            rounded"
+            rounded hover:bg-blue-900 transition-all duration-300"
                 >
                   <div className="flex-grow-0">
                     <FaUser />
@@ -82,16 +82,14 @@ export default function LoginModal() {
 
           <div className="flex justify-center items-center ">
             <button
-              className="bg-[#4285F4] hover:bg-blue-600
-            flex justify-center items-center
-
+              className="flex justify-center items-center bg-[#4285F4] hover:bg-blue-600 
             text-white w-[85%] h-10 mt-5 text-mg p-2 
             rounded"
             >
-              <div className=" flex justify-center items-center left- rounded bg-white h-9 w-9 absolute  left-8 ">
+              <div className=" flex justify-center items-center rounded bg-white h-9 w-9 mr-auto ml-[-0.4rem]">
                 <img
                   className="w-6 h-6"
-                  src={"/assets/google.png" || "google.png"}
+                  src={"/assets/google.png"}
                 />
               </div>
               <h1 className="flex-grow text-center">Login with Google</h1>
@@ -121,7 +119,7 @@ export default function LoginModal() {
             {!signup ? "Login" : "Sign up"}
           </button>
           {!signup && (
-            <div className="mt-9 cursor-pointer flex flex-col items-center text-sm font-light">
+            <div className="mt-9 cursor-pointer flex flex-col items-center text-sm font-light text-[#5696EC] hover:text-slate-500 ">
               <div className="mb-3">
                 <p>Forgot your password?</p>
               </div>
@@ -129,7 +127,8 @@ export default function LoginModal() {
           )}
           <button
             className={`cursor-pointer bg-[#F1F6F4] w-[100%] h-10  flex items-center  
-          justify-center rounded-bl-lg rounded-br-lg text-[#5696EC] text-md font-light hover:bg-gray-200 ${signup ? 'mt-16' : ''}`}
+            justify-center rounded-bl-lg rounded-br-lg text-[#5696EC] 
+            text-md font-light hover:bg-gray-200  ${signup ? 'mt-[40px]' : ''}`}
             onClick={() => setSignup(!signup)}
           >
             {signup ? "Already have an account?" : "Don't have an account?"}

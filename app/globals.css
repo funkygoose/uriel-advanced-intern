@@ -97,6 +97,11 @@ button:disabled {
   
 }
 
+.btn2:hover {
+  background-color: #28ca74;
+  transition: background-color 0.3s ease-in-out;
+}
+
 
 .btn:hover:not(:disabled) {
   background-color: #20ba68;
