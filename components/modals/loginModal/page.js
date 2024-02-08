@@ -23,10 +23,6 @@ export default function LoginModal() {
     );
   }
 
-  function toggleSignup() {
-    setSignup(!signup);
-    dispatch(closeLoginModal);
-  }
 
   return (
     <>
@@ -43,7 +39,7 @@ export default function LoginModal() {
         className="flex justify-center items-center"
       >
         
-        <div className={`relative w-[400px] h-[550px] bg-white rounded-lg ${signup ? 'h-[401px] w-[400px]' : ''}`}>
+        <div className={`relative w-[400px] h-[550px] bg-white rounded-lg ${signup ? 'h-fit' : '' }`}>
 
           <div className="flex justify-center items-center mt-10 px-4 w-full">
             <h2 className="font-bold text-xl">
@@ -86,7 +82,7 @@ export default function LoginModal() {
             text-white w-[85%] h-10 mt-5 text-mg p-2 
             rounded"
             >
-              <div className=" flex justify-center items-center rounded bg-white h-9 w-9 mr-auto ml-[-0.4rem]">
+              <div className=" flex justify-center items-center rounded bg-white h-9 w-9 mr-auto ml-[-0.37rem]">
                 <img
                   className="w-6 h-6"
                   src={"/assets/google.png"}

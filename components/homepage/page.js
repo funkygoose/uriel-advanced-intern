@@ -247,6 +247,10 @@ return (
           <div className="reviews__btn--wrapper">
             <button className="btn home__cta--btn" onClick={() => dispatch(openLoginModal())}>Login</button>
           </div>
+          <Link href='/foryou'>
+          <button className="btn home__cta--btn">Login</button>
+
+          </Link>
         </div>
       </div>
     </section>
