@@ -490,6 +490,20 @@ button:disabled {
   font-weight: 500;
 }
 
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.sidebar-enter {
+  animation: slideInFromLeft 0.3s ease-out forwards;
+}
+
+
 @media (max-width: 768px) {
   .landing__content {
     display: flex;
@@ -581,8 +595,12 @@ button:disabled {
   }
 }
 
+
+
 @media (max-width: 576px) {
   .nav__list--mobile {
     display: none;
   }
 }
+
+

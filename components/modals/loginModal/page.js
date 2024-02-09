@@ -3,10 +3,15 @@ import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUser } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "@/firebase";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { CircularProgress } from "@mui/material";
 export default function LoginModal() {
   const loginOpen = useSelector((state) => state.modals.loginModalOpen);
   const dispatch = useDispatch();
@@ -14,6 +19,11 @@ export default function LoginModal() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [signup, setSignup] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
+
+  const handleSignIn = () => {};
 
   async function handleSignUp() {
     const userCredentials = await createUserWithEmailAndPassword(
@@ -22,7 +32,18 @@ export default function LoginModal() {
       password
     );
   }
-
+  async function handleGuestSignIn() {
+    setIsLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 1200));
+    try {
+      await signInWithEmailAndPassword(auth, "guest@gmail.com", "guest123");
+      router.push("./foryou");
+    } catch (error) {
+      // Handle errors here
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <>
@@ -38,9 +59,11 @@ export default function LoginModal() {
         onClose={() => dispatch(closeLoginModal())}
         className="flex justify-center items-center"
       >
-        
-        <div className={`relative w-[400px] h-[550px] bg-white rounded-lg ${signup ? 'h-fit' : '' }`}>
-
+        <div
+          className={`relative w-[400px] h-[550px] bg-white rounded-lg ${
+            signup ? "h-fit" : ""
+          }`}
+        >
           <div className="flex justify-center items-center mt-10 px-4 w-full">
             <h2 className="font-bold text-xl">
               {!signup ? "Login" : "Sign up"} to Summarist
@@ -62,11 +85,19 @@ export default function LoginModal() {
 
             text-white w-[85%] mt-5 text-mg p-2 
             rounded hover:bg-blue-900 transition-all duration-300"
+                  onClick={handleGuestSignIn}
+                  disabled={isLoading}
                 >
-                  <div className="flex-grow-0">
-                    <FaUser />
-                  </div>
-                  <h1 className="flex-grow text-center">Login as a Guest</h1>
+                  {isLoading ? (
+                    <CircularProgress size={20} color="inherit" />
+                  ) : (
+                    <>
+                      <FaUser className="flex-grow-0" />
+                      <h1 className="flex-grow text-center">
+                        Login as a Guest
+                      </h1>
+                    </>
+                  )}
                 </button>
               </div>
 
@@ -83,10 +114,7 @@ export default function LoginModal() {
             rounded"
             >
               <div className=" flex justify-center items-center rounded bg-white h-9 w-9 mr-auto ml-[-0.37rem]">
-                <img
-                  className="w-6 h-6"
-                  src={"/assets/google.png"}
-                />
+                <img className="w-6 h-6" src={"/assets/google.png"} />
               </div>
               <h1 className="flex-grow text-center">Login with Google</h1>
             </button>
@@ -110,7 +138,7 @@ export default function LoginModal() {
           </div>
           <button
             className="btn2 home__cta--btn2"
-            onClick={() => dispatch(openLoginModal())}
+            onClick={!signup ? handleSignUp : handleSignIn}
           >
             {!signup ? "Login" : "Sign up"}
           </button>
@@ -124,7 +152,7 @@ export default function LoginModal() {
           <button
             className={`cursor-pointer bg-[#F1F6F4] w-[100%] h-10  flex items-center  
             justify-center rounded-bl-lg rounded-br-lg text-[#5696EC] 
-            text-md font-light hover:bg-gray-200  ${signup ? 'mt-[40px]' : ''}`}
+            text-md font-light hover:bg-gray-200  ${signup ? "mt-[40px]" : ""}`}
             onClick={() => setSignup(!signup)}
           >
             {signup ? "Already have an account?" : "Don't have an account?"}

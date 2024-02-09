@@ -1,12 +1,18 @@
-import SideBar from '@/components/sidebar/page'
-import React from 'react'
+import ForYouHome from "@/components/foryouhome/page";
+import SearchBar from "@/components/searchbar/page";
+import SideBar from "@/components/modals/sidebar/page";
+import React from "react";
 
 const ForYou = () => {
   return (
-    <>
-    <SideBar/>
-    </>
-  )
-}
+    <div className="flex">
+      <SideBar />
+      <div>
+        <SearchBar />
+        <ForYouHome />
+      </div>
+    </div>
+  );
+};
 
-export default ForYou
+export default ForYou;
