@@ -1,9 +1,9 @@
 export default function SideBar() {
   return (
-    <div className="hidden md:flex bg-[#f7faf9] min-h-screen flex-col w-54  sidebar-enter  ">
-      <figure className="p-4">
+    <div className="hidden md:flex bg-[#f7faf9] min-h-screen flex-col w-48  sidebar-enter  ">
+      <figure className="p-5">
         <img
-          className="w-32 h-auto"
+          className="w-44 h-auto"
           src="/assets/logo.png"
           alt="Summmarist Logo"
         />
@@ -12,7 +12,7 @@ export default function SideBar() {
         <ul className="space-y-4 p-4">
           <li className="flex items-center space-x-2">
             <i></i>
-            <span>For you</span>
+            <span>Fr you</span>
           </li>
           <li className="flex items-center space-x-2">
             <i></i>
