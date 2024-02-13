@@ -5,7 +5,7 @@ import React from "react";
 
 const ForYou = () => {
   return (
-    <div className=" ">
+    <div className="flex ">
       <SideBar />
       <div className="w-[100%]">
         <div className="">

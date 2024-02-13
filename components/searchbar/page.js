@@ -1,5 +1,7 @@
 import { AiOutlineSearch } from "react-icons/ai";
 import { CiBookmark } from "react-icons/ci";
+import { RxHamburgerMenu } from "react-icons/rx";
+
 
 export default function SearchBar() {
   return (
