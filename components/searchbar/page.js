@@ -3,8 +3,8 @@ import { CiBookmark } from "react-icons/ci";
 
 export default function SearchBar() {
   return (
-    <div className="m-auto mt-5 ">
-      <div className="flex  ">
+    <div className="flex justify-end m-auto mt-5 border-b pb-5 pr-7">
+      <div className="flex ">
         <input
         
           placeholder="Search for books"

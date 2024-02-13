@@ -5,11 +5,15 @@ import React from "react";
 
 const ForYou = () => {
   return (
-    <div className="flex">
+    <div className=" ">
       <SideBar />
-      <div>
-        <SearchBar />
-        <ForYouHome />
+      <div className="w-[100%]">
+        <div className="">
+          <SearchBar />
+        </div>
+        <div className="w-full">
+          <ForYouHome />
+        </div>
       </div>
     </div>
   );

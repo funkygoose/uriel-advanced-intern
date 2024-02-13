@@ -22,7 +22,7 @@ export default function SideBar() {
   };
 
   return (
-    <div className="hidden md:flex bg-[#f7faf9] min-h-screen flex-col w-52  sidebar-enter  ">
+    <div className="hidden md:flex bg-[#f7faf9] min-h-screen flex-col w-64  sidebar-enter  ">
       <figure className="p-5">
         <img
           className="w-44 h-auto"
