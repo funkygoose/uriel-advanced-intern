@@ -62,9 +62,9 @@ export default function LoginModal() {
       await signInWithEmailAndPassword(auth, "guest@gmail.com", "guest123");
       router.push("./foryou");
     } catch (error) {
-      // Handle errors here
+      
     } finally {
-      setIsLoading(false);
+      setIsLoading(true);
     }
   }
 
@@ -108,7 +108,7 @@ export default function LoginModal() {
             </h2>
             <button
               onClick={() => dispatch(closeLoginModal())}
-              className="absolute top-3 right-3 text-gray-900 hover:text-gray-900"
+              className="absolute top-3 right-3 text-gray-900 hover:text-gray-500"
               aria-label="Close"
             >
               <RxCross2 className="text-3xl" />
