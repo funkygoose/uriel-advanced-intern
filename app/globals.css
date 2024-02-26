@@ -2,6 +2,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import 'owl.carousel/dist/assets/owl.carousel.css';
+@import 'owl.carousel/dist/assets/owl.theme.default.css';
+
 
 * {
   margin: 0;
@@ -55,6 +58,7 @@ button:disabled {
   margin: 0 10px;
 }
 
+
 .row {
   max-width: 1070px;
   width: 100%;
@@ -101,6 +105,27 @@ button:disabled {
   background-color: #28ca74;
   transition: background-color 0.3s ease-in-out;
 }
+.btn2 {
+  background-color: #2bd97c;
+  color: #032b41;
+  width: 85%;
+  height: 40px;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 200ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 180px;
+  margin-top: 20px;
+  cursor: pointer;
+  
+}
+
+.btn2:hover {
+  background-color: #28ca74;
+  transition: background-color 0.3s ease-in-out;
+}
 
 
 .btn:hover:not(:disabled) {
@@ -119,8 +144,14 @@ button:disabled {
 }
 .home__cta--btn2 {
   display:block;
- margin-left: auto;
- margin-right:auto ;
+  margin-left: auto;
+  margin-right:auto ;
+}
+.home__cta--btn3 {
+  max-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* HOME */
@@ -213,6 +244,15 @@ button:disabled {
 }
 
 /* FEATURES */
+.hide-vertical-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.hide-vertical-scrollbar {
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+} 
+
 .features__wrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -271,6 +311,11 @@ button:disabled {
   display: flex;
   gap: 80px;
   margin-bottom: 96px;
+}
+
+.hover-center:hover {
+padding: 10px;
+width: 100%;
 }
 
 .statistics__wrapper:last-child {
@@ -491,17 +536,15 @@ button:disabled {
 }
 
 @keyframes slideInFromLeft {
+  100% {
+    transform: translateX(0%);
+  }
   0% {
     transform: translateX(-100%);
   }
-  100% {
-    transform: translateX(0);
-  }
 }
 
-.sidebar-enter {
-  animation: slideInFromLeft 0.3s ease-out forwards;
-}
+
 
 
 @media (max-width: 768px) {

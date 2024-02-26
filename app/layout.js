@@ -11,6 +11,7 @@ export default function RootLayout({ children }) {
     <Provider store={store}>
     <html lang="en">
       <body className={inter.className}>{children}</body>
+      
     </html>
       
     </Provider>

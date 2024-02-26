@@ -1,4 +1,9 @@
-import { closeLoginModal, openLoginModal } from "@/lib/modalSlice/page";
+import {
+  closeLoginModal,
+  closeSignupModal,
+  openLoginModal,
+  openSignupModal,
+} from "@/lib/modalSlice/page";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUser } from "react-icons/fa";
@@ -14,9 +19,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
 import { setUser } from "@/lib/userslice/page";
+import { LuLogIn, LuLogOut } from "react-icons/lu";
 export default function LoginModal() {
   const loginOpen = useSelector((state) => state.modals.loginModalOpen);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +39,7 @@ export default function LoginModal() {
       router.push("./foryou");
     } catch (error) {
       const errorMessage = error.message;
-        alert(`Sign-in failed because of ${errorMessage}`);
+      alert(`Sign-in failed because of ${errorMessage}`);
     } finally {
       setIsLoading(false);
       setIsLoading2(false);
@@ -41,18 +48,18 @@ export default function LoginModal() {
 
   async function handleSignUp() {
     try {
-
       const userCredentials = await createUserWithEmailAndPassword(
         auth,
         email,
-        password,
-        );
-       {userCredentials && router.push("./foryou")} 
+        password
+      );
+      {
+        userCredentials && router.push("./foryou");
+      }
     } catch (error) {
       const errorMessage = error.message;
       alert(`Sign-up failed because of ${errorMessage}`);
     }
-    
   }
   async function handleGuestSignIn() {
     setIsLoading(true);
@@ -61,8 +68,6 @@ export default function LoginModal() {
     try {
       await signInWithEmailAndPassword(auth, "guest@gmail.com", "guest123");
       router.push("./foryou");
-    } catch (error) {
-      
     } finally {
       setIsLoading(true);
     }
@@ -75,25 +80,17 @@ export default function LoginModal() {
         setUser({
           username: null,
           name: null,
-          uid:currentUser.uid,
+          uid: currentUser.uid,
           email: currentUser.email,
           uid: currentUser.uid,
           photoUrl: null,
         })
       );
     });
-    return unsubscribe
   }, []);
 
   return (
     <>
-      <button
-        className="btn home__cta--btn"
-        onClick={() => dispatch(openLoginModal())}
-      >
-        Login
-      </button>
-
       <Modal
         open={loginOpen}
         onClose={() => dispatch(closeLoginModal())}

@@ -7,7 +7,7 @@ import { BiCrown } from "react-icons/bi";
 import { RiLeafLine } from "react-icons/ri";
 import Link from "next/link";
 import Image from "next/image";
-import LoginModal from "../modals/loginmodal/page";
+import LoginModal from "../modals/loginModal/page";
 import { openLoginModal } from "@/lib/modalSlice/page";
 import { useDispatch } from "react-redux";
 export default function HomePage() {
@@ -247,10 +247,7 @@ return (
           <div className="reviews__btn--wrapper">
             <button className="btn home__cta--btn" onClick={() => dispatch(openLoginModal())}>Login</button>
           </div>
-          <Link href='/foryou'>
-          <button className="btn home__cta--btn">Login</button>
-
-          </Link>
+          
         </div>
       </div>
     </section>
