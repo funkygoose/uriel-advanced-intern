@@ -60,9 +60,9 @@ export default function ForYouHome() {
     setSuggested(data);
   }
 
-    const toggleBook = (id) => {
-      router.push(`/book/${id}`);
-    };
+  const toggleBook = (id) => {
+    router.push(`/book/${id}`);
+  };
     
   
 
@@ -92,7 +92,7 @@ export default function ForYouHome() {
             </div>
           ) : (
             select.map((select, index) => (
-              <>
+              <div key={select.id}>
                 <div className="text-2xl font-bold mt-2">
                   Selected just for you
                 </div>
@@ -126,7 +126,7 @@ export default function ForYouHome() {
                     </div>
                   </div>
                 </div>
-              </>
+              </div>
             ))
           )}
 

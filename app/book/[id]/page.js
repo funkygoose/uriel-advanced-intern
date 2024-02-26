@@ -1,4 +1,5 @@
 "use client";
+
 import SideBar from "@/components/modals/sidebar/page";
 import SearchBar from "@/components/searchbar/page";
 import { FaRegStar } from "react-icons/fa6";
@@ -9,12 +10,15 @@ import { AiOutlineAudio, AiOutlineClockCircle } from "react-icons/ai";
 import { BsBookmark } from "react-icons/bs";
 import { CgReadme } from "react-icons/cg";
 import { Skeleton } from "@mui/material";
+import { useSearchParams } from "next/navigation";
+import axios from "axios";
 
-export default function Id() {
+export default function Page({ params }) {
+  console.log(params);
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { id } = router.query || {};
+  const { id } = params;
 
   async function fetchDataId(id) {
     const res = await axios.get(
@@ -24,17 +28,14 @@ export default function Id() {
     return data;
   }
   useEffect(() => {
-    const fetchData = async () => {
-      if (id) {
-        setLoading(true); // Set loading state to true before fetching data
-        const jsonData = await fetchDataId(id);
-        setData(jsonData);
-        setLoading(false);
-      }
+    const fetchData = async (id) => {
+      setLoading(true);
+      const jsonData = await fetchDataId(id);
+      setData(jsonData);
+      setLoading(false);
     };
-
     if (id) {
-      fetchData();
+      fetchData(id);
     }
   }, [id]);
 
@@ -52,13 +53,17 @@ export default function Id() {
               <div className="inner__wrapper  lg:flex lg:flex-row-reverse gap-8">
                 <div className="inner__book--img-wrapper flex justify-center md:w-auto  mb-8">
                   <figure className="book__image--wrapper  h-[300px] w-[300px] min-w-[300px]">
-                    <img
-                      className="w-[100%] h-[100%] "
-                      src={
-                        "https://firebasestorage.googleapis.com/v0/b/summaristt.appspot.com/o/books%2Fimages%2Fhow-to-win-friends-and-influence-people.png?alt=media&token=099193aa-4d85-4e22-8eb7-55f12a235fe2"
-                      }
-                      alt="The Lean Startup"
-                    />
+                    {loading ? (
+                      <div className="flex justify-center items-center">
+                        <Skeleton width="70%" height={300} borderRadius={0} />
+                      </div>
+                    ) : (
+                      <img
+                        className="w-[100%] h-[100%] "
+                        src={data.imageLink}
+                        alt="The Lean Startup"
+                      />
+                    )}
                   </figure>
                 </div>
                 {loading ? (
@@ -116,10 +121,10 @@ export default function Id() {
                       {data.title}
                     </div>
                     <div className="inner-book__author font-bold text-[#032b41] mb-3">
-                      Dale Carnegie
+                      {data.author}
                     </div>
                     <div className="inner-book__sub--title md:text-xl font-light text-[#032b41] mb-3">
-                      Time-tested advice for the digital age
+                      {data.subTitle}
                     </div>
                     <div className="inner-book__wrapper border-t border-b border-solid border-gray-300 py-4 mb-6">
                       <div className="inner-book__description--wrapper flex flex-wrap max-w-[400px] gap-y-3">
@@ -128,10 +133,10 @@ export default function Id() {
                             <FaRegStar />
                           </div>
                           <div className="inner-book__overall--rating flex items-center ">
-                            4.4
+                            {data.averageRating}
                           </div>
                           <div className="inner-book__total--rating ml-1 flex items-center">
-                            (608 ratings)
+                            ({data.totalRating} ratings)
                           </div>
                         </div>
                         <div className="inner-book__description flex item-center w-[50%] text-[#032b41] font-medium text-sm">
@@ -155,26 +160,26 @@ export default function Id() {
                             <HiOutlineLightBulb />
                           </div>
                           <div className="inner-book__overall--rating flex items-center">
-                            8 Key Ideas
+                            {data.keyIdeas} Key Ideas
                           </div>
                         </div>
                       </div>
                     </div>
                     <div className="flex gap-4 mb-6">
-                      <button className="w-[144px] h-[48px] flex items-center justify-center bg-[#032b41] text-white rounded cursor-pointer gap-2">
+                      <button className="w-[144px] h-[48px] flex items-center justify-center bg-[#032b41] text-white rounded cursor-pointer gap-2 hover:bg-slate-600">
                         <div className=" text-2xl">
                           <CgReadme />
                         </div>
                         <div>Read</div>
                       </button>
-                      <button className="w-[144px] h-[48px] bg-[#032b41] flex items-center justify-center text-white rounded cursor-pointer gap-2">
+                      <button className="w-[144px] h-[48px] bg-[#032b41] flex items-center justify-center text-white rounded cursor-pointer gap-2 hover:bg-slate-600">
                         <div className=" text-2xl ">
                           <AiOutlineAudio />
                         </div>
                         <div className="">Listen</div>
                       </button>
                     </div>
-                    <div className="inner-book__bookmark flex items-center gap-2 text-[#0365f2] font-semibold mb-10">
+                    <div className="inner-book__bookmark flex items-center gap-2 text-[#0365f2] hover:text-[#416dac] font-semibold mb-10 cursor-not-allowed	 ">
                       <div className="inner-book__bookmark--icon text-xl">
                         <BsBookmark />
                       </div>
@@ -183,50 +188,22 @@ export default function Id() {
                     <div className="text-lg font-bold mb-4">
                       What's it about?
                     </div>
-                    <div className="inner-book__tags flex flex-wrap gap-4 mb-4">
-                      <div className="flex text-sm md:text-base items-center font-medium h-[48px] px-4 bg-[#f1f6f4] text-[#032b41] rounded cursor-pointer gap-2">
-                        <div></div>
-                        <div>Communication Skills</div>
-                      </div>
-                      <div className="flex text-sm md:text-base items-center font-medium h-[48px] px-4 bg-[#f1f6f4] text-[#032b41] rounded cursor-pointer gap-2">
-                        <div></div>
-                        <div>Technology & the Future</div>
-                      </div>
+                    <div className="inner-book__tags flex flex-wrap gap-4 mb-4 cursor-not-allowed	">
+                      {data.tags &&
+                        data.tags.map((tag) => (
+                          <div className="flex text-sm md:text-base items-center font-medium h-[48px] px-4 bg-[#f1f6f4] text-[#032b41] rounded cursor-pointer gap-2">
+                            <div>{tag}</div>
+                          </div>
+                        ))}
                     </div>
                     <div className="inner-book__description text-[#032b41] mb-4 leading-6 text-sm md:text-base">
-                      "How to Win Friends and Influence People" is a self-help
-                      book written by Dale Carnegie and first published in 1936.
-                      The book provides practical advice and techniques for
-                      improving one's communication and social skills, with the
-                      goal of building better relationships and becoming more
-                      influential in both personal and professional settings.
-                      The book covers topics such as the importance of smiling,
-                      listening actively, giving honest and sincere
-                      appreciation, avoiding criticism, and becoming genuinely
-                      interested in others. It also emphasizes the power of
-                      empathy and understanding other people's perspectives.
-                      "How to Win Friends and Influence People" has been widely
-                      read and praised for its timeless and practical advice,
-                      and is considered a classic in the field of
-                      self-improvement.
+                      {data.bookDescription}
                     </div>
                     <div className="inner-book__author text-[#032b41] text-lg font-bold mb-4">
                       About the Author
                     </div>
                     <div className="inner-book__description text-[#032b41] mb-10 leading-6 text-sm md:text-base">
-                      Dale Carnegie (1888-1955) was an American author,
-                      lecturer, and developer of self-improvement courses. He is
-                      best known for his book "How to Win Friends and Influence
-                      People," which has sold over 30 million copies worldwide
-                      and is considered a classic in the self-help genre.
-                      Carnegie's teachings focused on improving interpersonal
-                      skills, communication, and leadership, and his courses and
-                      books were aimed at helping individuals become more
-                      confident, successful, and influential in both their
-                      personal and professional lives. He also founded the Dale
-                      Carnegie Training program, which is still in operation
-                      today and has helped millions of people around the world
-                      improve their communication and leadership skills.
+                      {data.authorDescription}
                     </div>
                   </div>
                 )}
