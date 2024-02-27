@@ -10,8 +10,8 @@ export default function BookPill() {
   const user = useSelector(state => state.user);
 
   return (
-    <div className="flex justify-end w-[100%]">
-        <button className="bg-sky-900 px-3 p-[2px] rounded-xl text-xs text-white "> Premium</button>
-    </div>
+    
+        <div className="bg-sky-900 px-3 p-[2px] rounded-xl text-xs text-white "> Premium</div>
+    
   );
 }

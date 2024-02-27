@@ -13,22 +13,25 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import SideModal from "../sideModal/page";
-import { openLoginModal } from "@/lib/modalSlice/page";
+import { openLoginModal, openSignupModal } from "@/lib/modalSlice/page";
+import { auth } from "@/firebase";
 
 export default function SideBar() {
-  const [isLogged, setIsLogged] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false)
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
   const router = useRouter();
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
+  // const [loggedIn, setLoggedIn] = useState()
 
-  const toggleLogin = () => {
-    setIsLogged(!isLogged);
-    if (!isLogged) {
-      dispatch(openLoginModal());
-    }
-  };
+  function handleSignOut() {
+    auth.signOut()
+    .then(() => {
+      // setLoggedIn(false)
+      window.location.reload();
+      console.log("User signed out successfully");
+  })
+  }
+  
 
   const toggleForyou = () => {
     router.push("/foryou");
@@ -37,9 +40,9 @@ export default function SideBar() {
     router.push("/settings");
   };
 
-  const handleLogin = () => {
-    router.push("/components/settingLogin"); // Redirect to login page
-  };
+  // const handleLogin = () => {
+  //   router.push("/components/settingLogin"); // Redirect to login page
+  // };
 
   return (
     <div className="sidebar fixed hidden md:flex bg-[#f7faf9] min-w-[200px] w-[200px] h-[100vh] flex-col ">
@@ -91,20 +94,19 @@ export default function SideBar() {
             </li>
             <li
               className="flex items-center space-x-2 pb-5 hover:bg-gray-200 cursor-pointer p-5 pl-5"
-             onClick={toggleLogin}
+              onClick={user.email ? handleSignOut : () => dispatch(openLoginModal())}
             >
-              {!isLogged ? (
+              {user.email ? (
                 <>
-                <LuLogOut className="text-[rgb(3,43,65)] text-2xl" />
-                <a>Logout</a>
+                  <LuLogOut className="text-[rgb(3,43,65)] text-2xl" />
+                  <a>Logout</a>
                 </>
               ) : (
                 <>
-                <LuLogIn className="text-[rgb(3,43,65)] text-2xl"  />
-                <a>Login</a>
+                  <LuLogIn className="text-[rgb(3,43,65)] text-2xl" />
+                  <a>Login</a>
                 </>
               )}
-              {isLogged && <SideModal/>}
             </li>
             <div className="m-4"></div>
           </ul>

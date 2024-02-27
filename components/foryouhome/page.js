@@ -10,6 +10,9 @@ import Link from "next/link";
 import BookPill from "./bookPill/page";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/firebase";
+import { setUser } from "@/lib/userslice/page";
 
 export default function ForYouHome() {
   const [select, setSelect] = useState([]);
@@ -20,6 +23,7 @@ export default function ForYouHome() {
   const router = useRouter()
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  
   // const [duration, setDuration] = useState(0);
 
   // useEffect(() => {
@@ -64,7 +68,25 @@ export default function ForYouHome() {
     router.push(`/book/${id}`);
   };
     
-  
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // If user is authenticated, dispatch setUser action with user data
+        dispatch(
+          setUser({
+            username: null,
+            name: null,
+            uid: user.uid,
+            email: user.email,
+            photoUrl: null,
+          })
+        );
+      } else {
+        // If user is not authenticated, handle accordingly
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     fetchSelect();
@@ -170,13 +192,13 @@ export default function ForYouHome() {
                 ))
               ) : (
                 <div className="flex overflow-x-auto space-x-4 py-4 hide-vertical-scrollbar">
-                  {}
+                  
                   {recommended.slice(0, 8).map((recommend, index) => (
-                      <div key={recommend.id} className="recommend__books hover:bg-[#F7FAF9] h-[380px] cursor-pointer" onClick={() => toggleBook(recommend.id)}>
+                      <div key={recommend.id} className="for-you__recommend--books hover:bg-[#F7FAF9] h-[380px] cursor-pointer" onClick={() => toggleBook(recommend.id)}>
                         <div className="flex justify-end w-[100%]">
                           {recommend.subscriptionRequired && <BookPill/>}
                         </div>
-                        <div className="p-5 ">
+                        <div className="p-2">
                           <figure className="w-[172px] h-[172px] mt-2 ">
                             <img
                               className="w-[100%] h-[100%]"
@@ -210,7 +232,7 @@ export default function ForYouHome() {
               )}
             </div>
           </div>
-          <div className="pb-[230px]">
+          <div className="pb-8">
             {loading ? ( //suggested-top
               <div className="mt-2">
                 <Skeleton width={200} height={50} borderRadius={0} />
@@ -255,8 +277,8 @@ export default function ForYouHome() {
                       <div className="flex justify-end w-[100%]">
                           {suggested.subscriptionRequired && <BookPill/>} 
                         </div>
-                      <div className="p-5 ">
-                        <figure className="w-[172px] h-[172px] mt-3 ">
+                      <div className="p-2 ">
+                        <figure className="w-[172px] h-[172px] mt-1 ">
                           <img
                             className="w-[100%] h-[100%]"
                             src={suggested.imageLink}

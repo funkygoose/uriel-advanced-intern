@@ -33,9 +33,9 @@ export default function LoginModal() {
 
   const router = useRouter();
 
-  async function handleSignIn() {
+   function handleSignIn() {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+       signInWithEmailAndPassword(auth, email, password);
       router.push("./foryou");
     } catch (error) {
       const errorMessage = error.message;
