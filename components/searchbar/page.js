@@ -5,7 +5,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 export default function SearchBar() {
   return (
     <div className="search__background border-b h-20 min-w-[200px]">
-      <div className="search__wrapper flex justify-end items-center mx-auto my-0 h-[100%] px-8 py-0">
+      <div className="search__wrapper flex justify-end items-center max-w-[1170px] lg:max-w-[1270px] w-[100%] mx-auto my-0 h-[100%] px-8 py-0">
         <div className="search__content flex items-center gap-6 max-w-[340px] w-[100%] pl-4">
           <div className="search flex items-center w-[100%]">
             <div

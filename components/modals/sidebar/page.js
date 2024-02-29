@@ -12,9 +12,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import SideModal from "../sideModal/page";
 import { openLoginModal, openSignupModal } from "@/lib/modalSlice/page";
 import { auth } from "@/firebase";
+import LoginModalTwo from "../loginmodaltwo/page";
 
 export default function SideBar() {
   const router = useRouter();
@@ -24,14 +24,12 @@ export default function SideBar() {
   // const [loggedIn, setLoggedIn] = useState()
 
   function handleSignOut() {
-    auth.signOut()
-    .then(() => {
+    auth.signOut().then(() => {
       // setLoggedIn(false)
       window.location.reload();
       console.log("User signed out successfully");
-  })
+    });
   }
-  
 
   const toggleForyou = () => {
     router.push("/foryou");
@@ -93,8 +91,8 @@ export default function SideBar() {
               <a>Help & Support</a>
             </li>
             <li
-              className="flex items-center space-x-2 pb-5 hover:bg-gray-200 cursor-pointer p-5 pl-5"
-              onClick={user.email ? handleSignOut : () => dispatch(openLoginModal())}
+              className="flex items-center space-x-2 pb-5 hover:bg-gray-200 cursor-pointer p-5 pl-5 "
+              onClick={user.email && handleSignOut}
             >
               {user.email ? (
                 <>
@@ -103,8 +101,14 @@ export default function SideBar() {
                 </>
               ) : (
                 <>
-                  <LuLogIn className="text-[rgb(3,43,65)] text-2xl" />
-                  <a>Login</a>
+                  <div
+                    className="flex max-w-screen"
+                    onClick={() => dispatch(openSignupModal())}
+                  >
+                    <LuLogOut className="text-[rgb(3,43,65)] text-2xl" />
+                    <a className="ml-2">Login</a>
+                  </div>
+                  <LoginModalTwo />
                 </>
               )}
             </li>

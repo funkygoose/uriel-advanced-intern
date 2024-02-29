@@ -65,7 +65,7 @@ export default function ForYouHome() {
   }
 
   const toggleBook = (id) => {
-    router.push(`/book/${id}`);
+    router.push(`/book/${id}`); 
   };
     
   useEffect(() => {
@@ -194,11 +194,11 @@ export default function ForYouHome() {
                 <div className="flex overflow-x-auto space-x-4 py-4 hide-vertical-scrollbar">
                   
                   {recommended.slice(0, 8).map((recommend, index) => (
-                      <div key={recommend.id} className="for-you__recommend--books hover:bg-[#F7FAF9] h-[380px] cursor-pointer" onClick={() => toggleBook(recommend.id)}>
+                      <div key={recommend.id} className="relative for-you__recommend--books hover:bg-[#F7FAF9] h-[380px] cursor-pointer" onClick={() => toggleBook(recommend.id)}>
                         <div className="flex justify-end w-[100%]">
-                          {recommend.subscriptionRequired && <BookPill/>}
+                        {!user.email && recommend.subscriptionRequired ? <BookPill /> : null}
                         </div>
-                        <div className="p-2">
+                        <div className="p-2 mt-3">
                           <figure className="w-[172px] h-[172px] mt-2 ">
                             <img
                               className="w-[100%] h-[100%]"
@@ -273,11 +273,11 @@ export default function ForYouHome() {
               ) : (
                 <div className="flex overflow-x-auto space-x-4 py-4 hide-vertical-scrollbar">
                   {suggested.slice(0, 8).map((suggested, index) => (
-                    <div key={suggested.id} className="suggested__books hover:bg-[#F7FAF9] h-[380px] cursor-pointer" onClick={() => toggleBook(suggested.id)}>
+                    <div key={suggested.id} className="relative suggested__books hover:bg-[#F7FAF9] h-[380px] cursor-pointer" onClick={() => toggleBook(suggested.id)}>
                       <div className="flex justify-end w-[100%]">
-                          {suggested.subscriptionRequired && <BookPill/>} 
+                      {!user.email && suggested.subscriptionRequired ? <BookPill /> : null}
                         </div>
-                      <div className="p-2 ">
+                      <div className="p-2 mt-4">
                         <figure className="w-[172px] h-[172px] mt-1 ">
                           <img
                             className="w-[100%] h-[100%]"

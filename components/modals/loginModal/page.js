@@ -68,22 +68,27 @@ export default function LoginModal() {
     }
   }
 
+  function handleClose() {
+    () => dispatch(closeLoginModal())
+  }
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser) return;
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) return;
       dispatch(
         setUser({
           username: null,
           name: null,
-          uid:currentUser.uid,
-          email: currentUser.email,
-          uid: currentUser.uid,
+          uid:user.uid,
+          email: user.email,
+          uid: user.uid,
           photoUrl: null,
         })
       );
     });
     return unsubscribe
   }, []);
+ 
 
   return (
     <>
@@ -97,10 +102,11 @@ export default function LoginModal() {
       <Modal
         open={loginOpen}
         onClose={() => dispatch(closeLoginModal())}
-        className="flex justify-center items-center"
+        className="flex justify-center items-center "
       >
+        
         <div
-          className={`relative w-[400px] h-[550px] bg-white rounded-lg ${
+          className={`relative w-[400px] h-[550px] bg-white rounded-lg outline-none  ${
             signup ? "h-fit" : ""
           }`}
         >
@@ -116,6 +122,7 @@ export default function LoginModal() {
               <RxCross2 className="text-3xl" />
             </button>
           </div>
+          
           {!signup && (
             <>
               <div className="flex justify-center items-center ">
@@ -206,7 +213,9 @@ export default function LoginModal() {
             {signup ? "Already have an account?" : "Don't have an account?"}
           </button>
         </div>
+        
       </Modal>
+      
     </>
   );
 }

@@ -1,7 +1,5 @@
 import {
-  closeLoginModal,
   closeSignupModal,
-  openLoginModal,
   openSignupModal,
 } from "@/lib/modalSlice/page";
 import Modal from "@mui/material/Modal";
@@ -21,7 +19,7 @@ import { CircularProgress } from "@mui/material";
 import { setUser } from "@/lib/userslice/page";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
 export default function LoginModal() {
-  const loginOpen = useSelector((state) => state.modals.loginModalOpen);
+  const loginOpen = useSelector((state) => state.modals.signUpModal);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
@@ -33,9 +31,9 @@ export default function LoginModal() {
 
   const router = useRouter();
 
-   function handleSignIn() {
+  function handleSignIn() {
     try {
-       signInWithEmailAndPassword(auth, email, password);
+      signInWithEmailAndPassword(auth, email, password);
       router.push("./foryou");
     } catch (error) {
       const errorMessage = error.message;
@@ -73,31 +71,38 @@ export default function LoginModal() {
     }
   }
 
+  function handleClose() {
+    () => dispatch(closeSignupModal())
+  }
+ console.log(handleClose)
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser) return;
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) return;
       dispatch(
         setUser({
           username: null,
           name: null,
-          uid: currentUser.uid,
-          email: currentUser.email,
-          uid: currentUser.uid,
+          uid: user.uid,
+          email: user.email,
+          uid: user.uid,
           photoUrl: null,
         })
       );
     });
+    return unsubscribe;
   }, []);
 
   return (
     <>
+      
+
       <Modal
         open={loginOpen}
-        onClose={() => dispatch(closeLoginModal())}
+        onClose={() => dispatch(closeSignupModal())}
         className="flex justify-center items-center"
       >
         <div
-          className={`relative w-[400px] h-[550px] bg-white rounded-lg ${
+          className={`relative w-[400px] h-[550px] bg-white rounded-lg outline-none ${
             signup ? "h-fit" : ""
           }`}
         >
@@ -106,7 +111,7 @@ export default function LoginModal() {
               {!signup ? "Login" : "Sign up"} to Summarist
             </h2>
             <button
-              onClick={() => dispatch(closeLoginModal())}
+              onClick={() => dispatch(closeSignupModal())}
               className="absolute top-3 right-3 text-gray-900 hover:text-gray-500"
               aria-label="Close"
             >

@@ -12,12 +12,17 @@ import { CgReadme } from "react-icons/cg";
 import { Skeleton } from "@mui/material";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { openLoginModal, openSignupModal } from "@/lib/modalSlice/page";
+import LoginModalTwo from "@/components/modals/loginmodaltwo/page";
+
 
 export default function Page({ params }) {
-  console.log(params);
+
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
   const { id } = params;
 
   async function fetchDataId(id) {
@@ -179,11 +184,12 @@ export default function Page({ params }) {
                         <div className="">Listen</div>
                       </button>
                     </div>
-                    <div className="inner-book__bookmark flex items-center gap-2 text-[#0365f2] hover:text-[#416dac] font-semibold mb-10 cursor-not-allowed	 ">
-                      <div className="inner-book__bookmark--icon text-xl">
+                    <div className="inner-book__bookmark cursor-pointer flex items-center gap-2 text-[#0365f2] hover:text-[#416dac] font-semibold mb-10"  onClick={() => dispatch(openLoginModal())}>
+                      <div className="inner-book__bookmark--icon text-xl ">
                         <BsBookmark />
                       </div>
-                      <div className="">Add Title to My Library</div>
+                      <div onClick={() => dispatch(openSignupModal())}>Add Title to My Library</div>
+                      <LoginModalTwo/>
                     </div>
                     <div className="text-lg font-bold mb-4">
                       What's it about?

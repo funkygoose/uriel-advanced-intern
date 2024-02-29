@@ -3,7 +3,7 @@
 import { openLoginModal } from "@/lib/modalSlice/page";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
-import LoginModal from "../modals/loginModal/page";
+import LoginModal from "../modals/loginmodal/page";
 
 export default function Settings() {
   

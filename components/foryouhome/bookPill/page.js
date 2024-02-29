@@ -11,7 +11,7 @@ export default function BookPill() {
 
   return (
     
-        <div className="bg-sky-900 px-3 p-[2px] rounded-xl text-xs text-white "> Premium</div>
+        <div className="absolute bg-sky-900 px-3 p-[2px] rounded-xl text-xs text-white "> Premium</div>
     
   );
 }
