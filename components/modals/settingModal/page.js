@@ -1,4 +1,4 @@
-import { closeSignupModal, openSignupModal } from "@/lib/modalSlice/page";
+import { closeSettingModal, closeSignupModal, openLoginModal, openSettingModal, openSignupModal } from "@/lib/modalSlice/page";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUser } from "react-icons/fa";
@@ -16,7 +16,7 @@ import { CircularProgress } from "@mui/material";
 import { setUser } from "@/lib/userslice/page";
 import { LuLogIn, LuLogOut } from "react-icons/lu";
 export default function LoginModal() {
-  const loginOpen = useSelector((state) => state.modals.signUpModal);
+  const loginOpen = useSelector((state) => state.modals.settingModal);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
@@ -31,8 +31,7 @@ export default function LoginModal() {
   function handleSignIn() {
     try {
       signInWithEmailAndPassword(auth, email, password);
-      router.push("./foryou");
-      window.location.reload();
+      
     } catch (error) {
       const errorMessage = error.message;
       alert(`Sign-in failed because of ${errorMessage}`);
@@ -63,8 +62,6 @@ export default function LoginModal() {
 
     try {
       await signInWithEmailAndPassword(auth, "guest@gmail.com", "guest123");
-      router.push("./foryou");
-      window.location.reload();
     } finally {
       setIsLoading(true);
     }
@@ -73,7 +70,6 @@ export default function LoginModal() {
   function handleClose() {
     () => dispatch(closeSignupModal());
   }
-  console.log(handleClose);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (!user) return;
@@ -94,10 +90,10 @@ export default function LoginModal() {
 
   return (
     <>
-      
+     
       <Modal
         open={loginOpen}
-        onClose={() => dispatch(closeSignupModal())}
+        onClose={() => dispatch(closeSettingModal())}
         className="flex justify-center items-center"
         
       >
@@ -111,7 +107,7 @@ export default function LoginModal() {
               {!signup ? "Login" : "Sign up"} to Summarist
             </h2>
             <button
-              onClick={() => dispatch(closeSignupModal())}
+              onClick={() => dispatch(closeSettingModal())}
               className="absolute top-3 right-3 text-gray-900 hover:text-gray-500"
               aria-label="Close"
             >

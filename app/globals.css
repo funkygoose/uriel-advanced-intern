@@ -71,6 +71,9 @@ button:disabled {
   padding: 40px 0;
   width: 100%;
 }
+.containerTwo {
+  width: 100%;
+}
 
 .btn {
   background-color: #2bd97c;

@@ -12,15 +12,17 @@ import { CgReadme } from "react-icons/cg";
 import { Skeleton } from "@mui/material";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openLoginModal, openSignupModal } from "@/lib/modalSlice/page";
 import LoginModalTwo from "@/components/modals/loginmodaltwo/page";
 
-
 export default function Page({ params }) {
-
   const [data, setData] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [playerLoad, setPlayerLoad] = useState(false);
+
+  const user = useSelector((state) => state.user);
+  const isPremium = user.email && !loading;
   const router = useRouter();
   const dispatch = useDispatch();
   const { id } = params;
@@ -30,11 +32,11 @@ export default function Page({ params }) {
       `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`
     );
     const data = await res.data;
+    setPlayerLoad(data);
     return data;
   }
   useEffect(() => {
     const fetchData = async (id) => {
-      setLoading(true);
       const jsonData = await fetchDataId(id);
       setData(jsonData);
       setLoading(false);
@@ -43,6 +45,8 @@ export default function Page({ params }) {
       fetchData(id);
     }
   }, [id]);
+
+ 
 
   return (
     <div>
@@ -82,20 +86,18 @@ export default function Page({ params }) {
                     <div className="inner-book__sub--title md:text-xl font-light text-[#032b41] mb-3">
                       <Skeleton width="80%" height={50} borderRadius={0} />
                     </div>
-                    <div className="inner-book__wrapper border-t border-b border-solid border-gray-300 py-4 mb-6">
-                      <div className="inner-book__description--wrapper flex flex-wrap max-w-[400px] gap-y-3">
-                        <div className="inner-book__description flex item-center w-[50%] text-[#032b41] font-medium text-sm ">
-                          <Skeleton width="60%" height={30} borderRadius={0} />
-                        </div>
-                        <div className="inner-book__description flex item-center w-[50%] text-[#032b41] font-medium text-sm">
-                          <Skeleton width="50%" height={30} borderRadius={0} />
-                        </div>
-                        <div className="inner-book__description flex item-center w-[50%] text-[#032b41] font-medium text-sm">
-                          <Skeleton width="50%" height={30} borderRadius={0} />
-                        </div>
-                        <div className="inner-book__description flex item-center w-[50%] text-[#032b41] font-medium text-sm">
-                          <Skeleton width="60%" height={30} borderRadius={0} />
-                        </div>
+                    <div className="inner-book__description--wrapper flex flex-wrap max-w-[400px] gap-y-3">
+                      <div className="inner-book__description flex item-center w-[50%] text-[#032b41] font-medium text-sm ">
+                        <Skeleton width="60%" height={30} borderRadius={0} />
+                      </div>
+                      <div className="inner-book__description flex item-center w-[50%] text-[#032b41] font-medium text-sm">
+                        <Skeleton width="50%" height={30} borderRadius={0} />
+                      </div>
+                      <div className="inner-book__description flex item-center w-[50%] text-[#032b41] font-medium text-sm">
+                        <Skeleton width="50%" height={30} borderRadius={0} />
+                      </div>
+                      <div className="inner-book__description flex item-center w-[50%] text-[#032b41] font-medium text-sm">
+                        <Skeleton width="60%" height={30} borderRadius={0} />
                       </div>
                     </div>
                     <div className="flex gap-4 mb-6">
@@ -123,7 +125,7 @@ export default function Page({ params }) {
                 ) : (
                   <div className="inner__book w-[100%]">
                     <div className="inner-book__title text-2xl md:text-3xl font-bold text-[#032b41] mb-3">
-                      {data.title}
+                      {data.title} {!isPremium && <a>(Premium)</a>}
                     </div>
                     <div className="inner-book__author font-bold text-[#032b41] mb-3">
                       {data.author}
@@ -171,25 +173,39 @@ export default function Page({ params }) {
                       </div>
                     </div>
                     <div className="flex gap-4 mb-6">
-                      <button className="w-[144px] h-[48px] flex items-center justify-center bg-[#032b41] text-white rounded cursor-pointer gap-2 hover:bg-slate-600">
+                      <button
+                        className="w-[144px] h-[48px] flex items-center justify-center bg-[#032b41] 
+                      text-white rounded cursor-pointer gap-2 hover:bg-slate-600"
+                      onClick={() => router.push(`/player/${id}`)}
+                      >
                         <div className=" text-2xl">
                           <CgReadme />
                         </div>
                         <div>Read</div>
                       </button>
-                      <button className="w-[144px] h-[48px] bg-[#032b41] flex items-center justify-center text-white rounded cursor-pointer gap-2 hover:bg-slate-600">
+                      <button className="w-[144px] h-[48px] bg-[#032b41] flex items-center 
+                      justify-center text-white rounded cursor-pointer gap-2 hover:bg-slate-600"
+                      onClick={() => router.push(`/player/${id}`)}
+                      >
                         <div className=" text-2xl ">
                           <AiOutlineAudio />
                         </div>
                         <div className="">Listen</div>
                       </button>
                     </div>
-                    <div className="inner-book__bookmark cursor-pointer flex items-center gap-2 text-[#0365f2] hover:text-[#416dac] font-semibold mb-10"  onClick={() => dispatch(openLoginModal())}>
+                    <div className="inner-book__bookmark cursor-pointer flex items-center gap-2 text-[#0365f2] hover:text-[#416dac] font-semibold mb-10">
                       <div className="inner-book__bookmark--icon text-xl ">
                         <BsBookmark />
                       </div>
-                      <div onClick={() => dispatch(openSignupModal())}>Add Title to My Library</div>
-                      <LoginModalTwo/>
+
+                      {!user.email ? (
+                        <div onClick={() => dispatch(openSignupModal())}>
+                          Add Title to My Library
+                        </div>
+                      ) : (
+                        <div>Add Title to My Library</div>
+                      )}
+                      <LoginModalTwo />
                     </div>
                     <div className="text-lg font-bold mb-4">
                       What's it about?
@@ -197,7 +213,7 @@ export default function Page({ params }) {
                     <div className="inner-book__tags flex flex-wrap gap-4 mb-4 cursor-not-allowed	">
                       {data.tags &&
                         data.tags.map((tag) => (
-                          <div className="flex text-sm md:text-base items-center font-medium h-[48px] px-4 bg-[#f1f6f4] text-[#032b41] rounded cursor-pointer gap-2">
+                          <div className="flex text-sm md:text-base items-center font-medium h-[48px] px-4 bg-[#f1f6f4] text-[#032b41] rounded gap-2">
                             <div>{tag}</div>
                           </div>
                         ))}
