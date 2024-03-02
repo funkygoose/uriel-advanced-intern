@@ -34,6 +34,9 @@ export default function SideBar() {
   const toggleForyou = () => {
     router.push("/foryou");
   };
+  const myLibrary = () => {
+    router.push("/mylibrary");
+  };
   const toggleSettings = () => {
     router.push("/settings");
   };
@@ -61,7 +64,7 @@ export default function SideBar() {
               <AiOutlineHome className="text-[rgb(3,43,65)] text-2xl" />
               <a>For you</a>
             </li>
-            <li className="flex items-center space-x-2 mt-2 pt-4 hover:bg-gray-200 cursor-pointer  p-4  pl-5">
+            <li className="flex items-center space-x-2 mt-2 pt-4 hover:bg-gray-200 cursor-pointer  p-4  pl-5" onClick={myLibrary}>
               <BsBookmark className="text-[rgb(3,43,65)] text-2xl" />
               <a>My Library</a>
             </li>

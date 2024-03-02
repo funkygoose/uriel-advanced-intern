@@ -19,7 +19,7 @@ import LoginModalTwo from "@/components/modals/loginmodaltwo/page";
 export default function Page({ params }) {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
-  const [playerLoad, setPlayerLoad] = useState(false);
+  const [bookLoad, setBookLoad] = useState(false);
 
   const user = useSelector((state) => state.user);
   const isPremium = user.email && !loading;
@@ -27,12 +27,30 @@ export default function Page({ params }) {
   const dispatch = useDispatch();
   const { id } = params;
 
+  // Function to save book ID to local storage
+  const saveToLibrary = (id) => {
+    // Get the current library from local storage
+    const library = localStorage.getItem("library");
+    let newLibrary = [];
+
+    // If library exists, parse it
+    if (library) {
+      newLibrary = JSON.parse(library);
+    }
+
+    // Add the new book ID to the library
+    newLibrary.push(id);
+
+    // Save the updated library back to local storage
+    localStorage.setItem("library", JSON.stringify(newLibrary));
+  };
+
   async function fetchDataId(id) {
     const res = await axios.get(
       `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`
     );
     const data = await res.data;
-    setPlayerLoad(data);
+    setBookLoad(data);
     return data;
   }
   useEffect(() => {
@@ -203,7 +221,7 @@ export default function Page({ params }) {
                           Add Title to My Library
                         </div>
                       ) : (
-                        <div>Add Title to My Library</div>
+                        <div onClick={() => saveToLibrary(id)}>Add Title to My Library</div>
                       )}
                       <LoginModalTwo />
                     </div>

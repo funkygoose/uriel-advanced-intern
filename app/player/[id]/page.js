@@ -55,7 +55,7 @@ useEffect(() => {
               >
                 <p>{data.title}</p>
               </div>
-              <div className="flex justify-center items-center ">
+              <div className=" ">
                 <SettingPlayer />
               </div>
             </div>
