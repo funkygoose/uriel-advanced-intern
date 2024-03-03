@@ -10,7 +10,6 @@ import {
 } from "firebase/auth";
 import { auth } from "@/firebase";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
 import { setUser } from "@/lib/userslice/page";
