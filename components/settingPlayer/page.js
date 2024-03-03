@@ -9,8 +9,8 @@ export default function Settings({ title }) {
   const dispatch = useDispatch();
 
   return (
-    <section id="foryou-library" >
-      <div className="main__wrapper max-w-[800px] ">
+    <section id="foryou-library bg-white" >
+      <div className="main__wrapper max-w-[800px] bg-white">
         <div className="w-[100%]">
           <div className="">
             <figure className="flex flex-col items-center  mt-8">

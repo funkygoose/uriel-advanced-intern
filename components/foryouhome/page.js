@@ -14,35 +14,31 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebase";
 import { setUser } from "@/lib/userslice/page";
 
-export default function ForYouHome() {
+export default function ForYouHome({id, title, author, audioLink, imageLink}) {
   const [select, setSelect] = useState([]);
   const [recommended, setRecommended] = useState([]);
   const [suggested, setSuggested] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [recommendedDuration, setRecommendedDuration] = useState(0);
+  const [suggestedDuration, setSuggestedDuration] = useState(0);
 
-  const router = useRouter()
+  const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  
-  // const [duration, setDuration] = useState(0);
-
-  // useEffect(() => {
-  //   const audio = new Audio(audioLink)
-  //   audio.onloadedmetadata = () => {
-  //     setDuration(audio.duration);
-  // }})
-  // const formatTime = (time) => {
-  //   if (time && !isNaN(time)) {
-  //     const minutes = Math.floor(time / 60);
-  //     const formatMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
-  //     const seconds = Math.floor(time % 60);
-  //     const formatSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
-  //     return `${formatMinutes}:${formatSeconds}`;
-  //   }
-  //   return "00:00";
-  // };
 
   
+  const formatTime = (time) => {
+    if (time && !isNaN(time)) {
+      const minutes = Math.floor(time / 60);
+      const formatMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+      const seconds = Math.floor(time % 60);
+      const formatSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+      return `${formatMinutes}:${formatSeconds}`;
+    }
+    return "00:00";
+  };
+
+  ;
 
   async function fetchSelect() {
     const { data } = await axios.get(
@@ -65,13 +61,36 @@ export default function ForYouHome() {
   }
 
   const toggleBook = (id) => {
-    router.push(`/book/${id}`); 
+    router.push(`/book/${id}`);
   };
-    
+
+  
+
+ 
+  
+  useEffect(() => {
+    if (recommended.length > 0) {
+      const audio = new Audio(recommended[0].audioLink); 
+      audio.onloadedmetadata = () => {
+        const bookDuration = audio.duration;
+        setRecommendedDuration(bookDuration);
+      };
+    }
+  }, [recommended]);
+  
+  useEffect(() => {
+    if (suggested.length > 0) {
+      const audio = new Audio(suggested[0].audioLink); 
+      audio.onloadedmetadata = () => {
+        const bookDuration = audio.duration;
+        setSuggestedDuration(bookDuration);
+      };
+    }
+  }, [suggested]);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        // If user is authenticated, dispatch setUser action with user data
+        // auth
         dispatch(
           setUser({
             username: null,
@@ -82,7 +101,7 @@ export default function ForYouHome() {
           })
         );
       } else {
-        // If user is not authenticated, handle accordingly
+        // error
       }
     });
     return () => unsubscribe();
@@ -95,7 +114,7 @@ export default function ForYouHome() {
   }, []);
 
   return (
-    <section id="foryou-library" className="p-6 h-screen md:ml-[200px]">
+    <section id="foryou-library" className="p-6 md:ml-[200px]">
       <div className="main__wrapper max-w-[1000px] w-[100%] m-auto p-auto">
         <div className="for-you__wrapper">
           {loading ? ( //selected
@@ -118,7 +137,10 @@ export default function ForYouHome() {
                 <div className="text-2xl font-bold mt-2">
                   Selected just for you
                 </div>
-                <div className="rounded bg-[rgb(251,239,214)] mt-4 mb-6 md:h-48 cursor-pointer" onClick={() => toggleBook(select.id)}>
+                <div
+                  className="rounded bg-[rgb(251,239,214)] mt-4 mb-6 md:h-48 cursor-pointer"
+                  onClick={() => toggleBook(select.id)}
+                >
                   <div className=" md:flex p-6 md:p-6">
                     <div className=" pb-4 md:w-[35%]">
                       <h1 className="text-sm md:text-md leading-5">
@@ -141,7 +163,7 @@ export default function ForYouHome() {
                         <div className="flex">
                           <FaCirclePlay className="text-4xl" />
                           <span className="ml-2 flex justify-center items-center text-sm text-[#1A2B46] font-semibold">
-                            3 mins 23 secs
+                            3 min 23 secs
                           </span>
                         </div>
                       </div>
@@ -192,41 +214,46 @@ export default function ForYouHome() {
                 ))
               ) : (
                 <div className="flex overflow-x-auto space-x-4 py-4 hide-vertical-scrollbar">
-                  
                   {recommended.slice(0, 8).map((recommend, index) => (
-                      <div key={recommend.id} className="relative for-you__recommend--books hover:bg-[#F7FAF9] h-[380px] cursor-pointer" onClick={() => toggleBook(recommend.id)}>
-                        <div className="flex justify-end w-[100%]">
-                        {!user.email && recommend.subscriptionRequired ? <BookPill /> : null}
-                        </div>
-                        <div className="p-2 mt-3">
-                          <figure className="w-[172px] h-[172px] mt-2 ">
-                            <img
-                              className="w-[100%] h-[100%]"
-                              src={recommend.imageLink}
-                              alt="The Lean Startup"
-                            />
-                            <h1 className="font-bold mt-2 leading-tight">
-                              {recommend.title}
-                            </h1>
-
-                            <span className="font-light text-[#6b757b] text-sm ">
-                              {recommend.author}
-                            </span>
-
-                            <p className="text-sm pb-1">{recommend.subTitle}</p>
-                            <div className="flex gap-2">
-                              <div className="flex items-center text-sm font-light gap-1 text-[#6b757b]">
-                                <CiClock2 />
-                                <span>3:32</span>
-                              </div>
-                              <div className="flex items-center text-sm font-light gap-1 text-[#6b757b]">
-                                <IoIosStarOutline />
-                                <span>{recommend.averageRating}</span>
-                              </div>
-                            </div>
-                          </figure>
-                        </div>
+                    <div
+                      key={recommend.id}
+                      className="relative for-you__recommend--books hover:bg-[#F7FAF9] h-[380px] cursor-pointer"
+                      onClick={() => toggleBook(recommend.id)}
+                    >
+                      <div className="flex justify-end w-[100%]">
+                        {!user.email && recommend.subscriptionRequired ? (
+                          <BookPill />
+                        ) : null}
                       </div>
+                      <div className="p-2 mt-3">
+                        <figure className="w-[172px] h-[172px] mt-2 ">
+                          <img
+                            className="w-[100%] h-[100%]"
+                            src={recommend.imageLink}
+                            alt="The Lean Startup"
+                          />
+                          <h1 className="font-bold mt-2 leading-tight">
+                            {recommend.title}
+                          </h1>
+
+                          <span className="font-light text-[#6b757b] text-sm ">
+                            {recommend.author}
+                          </span>
+
+                          <p className="text-sm pb-1">{recommend.subTitle}</p>
+                          <div className="flex gap-2">
+                            <div className="flex items-center text-sm font-light gap-1 text-[#6b757b]">
+                              <CiClock2 />
+                              <span>{formatTime(recommendedDuration)}</span>
+                            </div>
+                            <div className="flex items-center text-sm font-light gap-1 text-[#6b757b]">
+                              <IoIosStarOutline />
+                              <span>{recommend.averageRating}</span>
+                            </div>
+                          </div>
+                        </figure>
+                      </div>
+                    </div>
                   ))}
                 </div>
               )}
@@ -273,10 +300,16 @@ export default function ForYouHome() {
               ) : (
                 <div className="flex overflow-x-auto space-x-4 py-4 hide-vertical-scrollbar">
                   {suggested.slice(0, 8).map((suggested, index) => (
-                    <div key={suggested.id} className="relative suggested__books hover:bg-[#F7FAF9] h-[380px] cursor-pointer" onClick={() => toggleBook(suggested.id)}>
+                    <div
+                      key={suggested.id}
+                      className="relative suggested__books hover:bg-[#F7FAF9] h-[380px] cursor-pointer"
+                      onClick={() => toggleBook(suggested.id)}
+                    >
                       <div className="flex justify-end w-[100%]">
-                      {!user.email && suggested.subscriptionRequired ? <BookPill /> : null}
-                        </div>
+                        {!user.email && suggested.subscriptionRequired ? (
+                          <BookPill />
+                        ) : null}
+                      </div>
                       <div className="p-2 mt-4">
                         <figure className="w-[172px] h-[172px] mt-1 ">
                           <img
@@ -296,7 +329,7 @@ export default function ForYouHome() {
                           <div className="flex gap-2">
                             <div className="flex items-center text-sm font-light gap-1 text-[#6b757b]">
                               <CiClock2 />
-                              <span>03:24</span>
+                              <span>{formatTime(suggestedDuration)}</span>
                             </div>
                             <div className="flex items-center text-sm font-light gap-1 text-[#6b757b]">
                               <IoIosStarOutline />

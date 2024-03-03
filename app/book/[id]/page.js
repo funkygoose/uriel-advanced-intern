@@ -67,14 +67,14 @@ export default function Page({ params }) {
  
 
   return (
-    <div>
+    <div className="">
       <div className="flex ">
         <div className="w-[100%]">
           <SideBar />
           <div className="">
             <SearchBar />
           </div>
-          <div className=" px-6   h-screen md:ml-[200px] ">
+          <div className=" px-6 h-[1200px] bg-white md:ml-[200px] ">
             {/* <audio></audio> */}
             <div className="container  max-w-[1000px]  m-auto p-auto  ">
               <div className="inner__wrapper  lg:flex lg:flex-row-reverse gap-8">
@@ -202,8 +202,8 @@ export default function Page({ params }) {
                         <div>Read</div>
                       </button>
                       <button className="w-[144px] h-[48px] bg-[#032b41] flex items-center 
-                      justify-center text-white rounded cursor-pointer gap-2 hover:bg-slate-600"
-                      onClick={() => router.push(`/player/${id}`)}
+                      justify-center text-white rounded cursor-not-allowed gap-2 hover:bg-slate-600 "
+                      
                       >
                         <div className=" text-2xl ">
                           <AiOutlineAudio />
@@ -211,17 +211,17 @@ export default function Page({ params }) {
                         <div className="">Listen</div>
                       </button>
                     </div>
-                    <div className="inner-book__bookmark cursor-pointer flex items-center gap-2 text-[#0365f2] hover:text-[#416dac] font-semibold mb-10">
+                    <div className="inner-book__bookmark  flex items-center gap-2 text-[#0365f2] hover:text-[#416dac] font-semibold mb-10">
                       <div className="inner-book__bookmark--icon text-xl ">
                         <BsBookmark />
                       </div>
 
                       {!user.email ? (
-                        <div onClick={() => dispatch(openSignupModal())}>
+                        <div className="cursor-pointer" onClick={() => dispatch(openSignupModal())}>
                           Add Title to My Library
                         </div>
                       ) : (
-                        <div onClick={() => saveToLibrary(id)}>Add Title to My Library</div>
+                        <div className="cursor-not-allowed">Add Title to My Library</div>
                       )}
                       <LoginModalTwo />
                     </div>

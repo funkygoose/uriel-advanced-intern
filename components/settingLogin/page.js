@@ -9,9 +9,9 @@ export default function Settings() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   return (
-    <section id="foryou-library" className="p-6 max-h-[1000px] md:ml-[200px]">
-      <div className="main__wrapper w-[100%] m-auto p-auto">
-        <div className=" text-3xl font-bold border-b-[1px] border-gray-200 pb-4 mb-8">
+    <section id="foryou-library" className="p-10 h-[1000px]  md:ml-[200px] bg-white">
+      <div className="main__wrapper m-auto p-auto">
+        <div className=" text-3xl font-bold border-b-[1px]  border-gray-200 pb-4 mb-8 ">
           Settings
         </div>
         {!user.email ? (
@@ -32,7 +32,7 @@ export default function Settings() {
             </div>
           </div>
         ) : (
-          <div className="subscription__wrapper max-w-[1070px] w-[100%] m-auto ">
+          <div className="subscription__wrapper  w-[100%] m-auto ">
             <div className="border-b-[1px] border-gray-200 pb-6 mb-8">
               <div className="setting__content gap-4">
                 <div className="setting__sub--title font-bold text-xl">

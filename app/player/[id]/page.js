@@ -48,7 +48,7 @@ useEffect(() => {
             <SearchBar />
           </div>
           <div className="md:ml-[200px] p-8">
-            <div className="item-center w-[100%] max-w-[800px]  m-auto p-auto">
+            <div className="item-center bg-white w-[100%] max-w-[800px]  m-auto p-auto">
               <div
                 className="inner-book__author  text-[#032b41] text-2xl font-bold border-b 
               border-solid border-gray-300 mb-4 pb-4"
@@ -75,7 +75,7 @@ useEffect(() => {
           <SearchBar />
         </div>
 
-        <div className=" px-6 h-screen md:ml-[200px] ">
+        <div className="bg-white px-6 h-[1200px] md:ml-[200px] ">
           {/* <audio></audio> */}
           <div className="containerTwo  max-w-[1000px]  m-auto p-auto  ">
             <div className="inner__wrapper  flex justify-center items-center">

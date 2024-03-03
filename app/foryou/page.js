@@ -11,7 +11,7 @@ const ForYou = () => {
         <div className="">
           <SearchBar />
         </div>
-        <div className="w-full h-full">
+        <div className="w-full h-full bg-white">
           <ForYouHome />
         </div>
       </div>

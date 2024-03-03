@@ -44,15 +44,16 @@ export default function SideBar() {
  
 
   return (
-    <div className="sidebar fixed hidden md:flex bg-[#f7faf9] min-w-[200px] w-[200px] h-[100vh] flex-col ">
-      <div className="sidebar__logo flex items-center justify-center m-auto h-14 pt-9 max-w-[160px]">
+    <div className="hamburger__modal  flex justify-center items-start fixed left-0 top-0 bg-[#f7faf9] min-w-[200px] w-[361px] h-screen flex-col 
+    border-2 border-[#f3f5f4] rounded-lg border-solid shadow-md transition ease-in-out duration-300" >
+      <div className="hamburger__logo  flex items-center justify-center m-auto h-14 pt-9 max-w-[160px]">
         <img
           className="w-[100%] h-10"
           src="/assets/logo.png"
           alt="Summmarist Logo"
         />
       </div>
-      <div className="sidebar__wrapper flex flex-col justify-between h-[100%] overflow-y-auto mt-4">
+      <div className="sidebar__wrapper flex flex-col justify-between h-[100%] w-[100%] overflow-y-auto mt-4">
         <div className="sidebar__top mt-8 ">
           <ul className=" ">
             <li
@@ -76,7 +77,7 @@ export default function SideBar() {
             </li>
           </ul>
         </div>
-        <div className="sidebar__bottom">
+        <div className="sidebar__bottom bg-[#f7faf9]">
           <ul className="">
             <div>
               <li
@@ -106,7 +107,7 @@ export default function SideBar() {
                     className="flex max-w-screen"
                     onClick={() => dispatch(openSignupModal())}
                   >
-                    <LuLogOut className="text-[rgb(3,43,65)] text-2xl" />
+                    <LuLogOut className="text-[rgb(3,43,65)]" />
                     <a className="ml-2">Login</a>
                   </div>
                   <LoginModalTwo />
