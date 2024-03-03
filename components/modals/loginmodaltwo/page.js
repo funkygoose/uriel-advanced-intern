@@ -153,7 +153,7 @@ export default function LoginModal() {
             <button
               className="flex justify-center items-center bg-[#4285F4] hover:bg-blue-600 
             text-white w-[85%] h-10 mt-5 text-mg p-2 
-            rounded"
+            rounded cursor-not-allowed"
             >
               <div className=" flex justify-center items-center rounded bg-white h-9 w-9 mr-auto ml-[-0.37rem]">
                 <img className="w-6 h-6" src={"/assets/google.png"} />
@@ -193,9 +193,9 @@ export default function LoginModal() {
           </button>
 
           {!signup && (
-            <div className="mt-9 cursor-pointer flex flex-col items-center text-sm font-light text-[#5696EC] hover:text-slate-500 ">
+            <div className="mt-9 flex flex-col items-center text-sm font-light text-[#5696EC] hover:text-slate-500 ">
               <div className="mb-3">
-                <p>Forgot your password?</p>
+                <p className="cursor-not-allowed">Forgot your password?</p>
               </div>
             </div>
           )}
