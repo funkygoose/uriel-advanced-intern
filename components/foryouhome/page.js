@@ -138,18 +138,18 @@ export default function ForYouHome({id, title, author, audioLink, imageLink}) {
                   Selected just for you
                 </div>
                 <div
-                  className="rounded bg-[rgb(251,239,214)] mt-4 mb-6 md:h-48 cursor-pointer w-[70%]"
+                  className="rounded bg-[rgb(251,239,214)] mt-4 mb-6 md:h-48 cursor-pointer "
                   onClick={() => toggleBook(select.id)}
                 >
-                  <div className=" md:flex p-6 md:p-6">
-                    <div className=" pb-4 md:w-[35%]">
+                  <div className=" md:flex p-4 md:p-6 ">
+                    <div className="  md:w-[35%] pb-4">
                       <h1 className="text-sm md:text-md leading-5">
                         How Constant Innovation Creates Radically Successful
                         Businesses
                       </h1>
                     </div>
                     <div className="md:h-36 w-[1px] bg-[#bac8ce] mx-7 "></div>
-                    <div className="flex md:w-[60%] gap-4 ">
+                    <div className="flex md:w-[60%] gap-4">
                       <div className="p-1 h-36">
                         <img
                           className="w-[100%] h-[100%]"
@@ -160,9 +160,9 @@ export default function ForYouHome({id, title, author, audioLink, imageLink}) {
                       <div className="w-auto">
                         <div className="font-bold pb-1">{select.title}</div>
                         <div className="text-sm pb-4">{select.author}</div>
-                        <div className="flex">
+                        <div className="flex gap-2">
                           <FaCirclePlay className="text-4xl" />
-                          <span className="ml-2 flex justify-center items-center text-sm text-[#1A2B46] font-semibold">
+                          <span className=" flex justify-center items-center text-sm text-[#1A2B46] font-semibold">
                             3 min 23 secs
                           </span>
                         </div>
