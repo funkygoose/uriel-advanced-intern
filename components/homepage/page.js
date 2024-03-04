@@ -7,8 +7,8 @@ import { BiCrown } from "react-icons/bi";
 import { RiLeafLine } from "react-icons/ri";
 import Link from "next/link";
 import Image from "next/image";
-import LoginModal from "/components/modals/loginmodal/page";
-import { openLoginModal } from "/lib/modalSlice/page";
+import LoginModal from "../modals/loginmodal/page";
+import { openLoginModal } from "@/lib/modalSlice/page";
 import { useDispatch } from "react-redux";
 export default function HomePage() {
   const [greenText, setGreenText] = useState(0);

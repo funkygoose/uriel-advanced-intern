@@ -27,21 +27,15 @@ export default function Page({ params }) {
   const dispatch = useDispatch();
   const { id } = params;
 
-  // Function to save book ID to local storage
   const saveToLibrary = (id) => {
-    // Get the current library from local storage
     const library = localStorage.getItem("library");
     let newLibrary = [];
 
-    // If library exists, parse it
     if (library) {
       newLibrary = JSON.parse(library);
     }
-
-    // Add the new book ID to the library
     newLibrary.push(id);
 
-    // Save the updated library back to local storage
     localStorage.setItem("library", JSON.stringify(newLibrary));
   };
 
@@ -63,8 +57,6 @@ export default function Page({ params }) {
       fetchData(id);
     }
   }, [id]);
-
- 
 
   return (
     <div className="">
@@ -194,16 +186,16 @@ export default function Page({ params }) {
                       <button
                         className="w-[144px] h-[48px] flex items-center justify-center bg-[#032b41] 
                       text-white rounded cursor-pointer gap-2 hover:bg-slate-600"
-                      onClick={() => router.push(`/player/${id}`)}
+                        onClick={() => router.push(`/player/${id}`)}
                       >
                         <div className=" text-2xl">
                           <CgReadme />
                         </div>
                         <div>Read</div>
                       </button>
-                      <button className="w-[144px] h-[48px] bg-[#032b41] flex items-center 
+                      <button
+                        className="w-[144px] h-[48px] bg-[#032b41] flex items-center 
                       justify-center text-white rounded cursor-not-allowed gap-2 hover:bg-slate-600 "
-                      
                       >
                         <div className=" text-2xl ">
                           <AiOutlineAudio />
@@ -217,11 +209,16 @@ export default function Page({ params }) {
                       </div>
 
                       {!user.email ? (
-                        <div className="cursor-pointer" onClick={() => dispatch(openSignupModal())}>
+                        <div
+                          className="cursor-pointer"
+                          onClick={() => dispatch(openSignupModal())}
+                        >
                           Add Title to My Library
                         </div>
                       ) : (
-                        <div className="cursor-not-allowed">Add Title to My Library</div>
+                        <div className="cursor-not-allowed">
+                          Add Title to My Library
+                        </div>
                       )}
                       <LoginModalTwo />
                     </div>
