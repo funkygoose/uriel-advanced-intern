@@ -150,13 +150,13 @@ export default function ForYouHome({id, title, author, audioLink, imageLink}) {
                     </div>
                     <div className="md:h-36 w-[1px] bg-[#bac8ce] mx-7 "></div>
                     <div className="flex md:w-[60%]  ">
-                      <figure className="lean-box h-36">
+                      <div className="p-1 h-36">
                         <img
                           className="w-[100%] h-[100%]"
                           src={select.imageLink}
                           alt="The Lean Startup"
                         />
-                      </figure>
+                      </div>
                       <div className="w-auto pl-4">
                         <div className="font-bold pb-1">{select.title}</div>
                         <div className="text-sm pb-4">{select.author}</div>
