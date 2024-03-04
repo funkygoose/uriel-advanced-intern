@@ -1,6 +1,7 @@
 "use client";
 
-import LoginModal from "@/components/modals/loginmodal/page";
+import LoginModal from "@/components/modals/LoginModal/page";
+import useSWR from 'swr'
 import SideBar from "@/components/modals/sidebar/page";
 import SearchBar from "@/components/searchbar/page";
 import { Skeleton } from "@mui/material";
