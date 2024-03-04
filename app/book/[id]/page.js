@@ -195,7 +195,7 @@ export default function Page({ params }) {
                       </button>
                       <button
                         className="w-[144px] h-[48px] bg-[#032b41] flex items-center 
-                      justify-center text-white rounded cursor-not-allowed gap-2 hover:bg-slate-600 "
+                      justify-center text-white rounded cursor-not-allowed select-none gap-2 hover:bg-slate-600 "
                       >
                         <div className=" text-2xl ">
                           <AiOutlineAudio />
@@ -216,7 +216,7 @@ export default function Page({ params }) {
                           Add Title to My Library
                         </div>
                       ) : (
-                        <div className="cursor-not-allowed">
+                        <div className="cursor-not-allowed select-none">
                           Add Title to My Library
                         </div>
                       )}
