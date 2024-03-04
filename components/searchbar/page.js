@@ -80,7 +80,7 @@ export default function SearchBar() {
         </div>
 
         <div
-          className="main__container--one absolute border-solid top-24 bg-white flex flex-col  max-h-[540px] z-9
+          className="main__container--one absolute border-solid top-24 bg-white flex flex-col  max-h-[540px] z-10
          "
         >
           {search &&

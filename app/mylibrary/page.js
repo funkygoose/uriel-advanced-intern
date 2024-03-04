@@ -1,4 +1,5 @@
 "use client";
+
 import LoginModal from "@/components/modals/loginmodal/page";
 import SideBar from "@/components/modals/sidebar/page";
 import SearchBar from "@/components/searchbar/page";
