@@ -195,7 +195,7 @@ export default function Page({ params }) {
                       </button>
                       <button
                         className="w-[144px] h-[48px] bg-[#032b41] flex items-center 
-                      justify-center text-white rounded cursor-not-allowed select-none gap-2 hover:bg-slate-600 "
+                      justify-center text-white rounded cursor-not-allowed select-none gap-2  "
                       >
                         <div className=" text-2xl ">
                           <AiOutlineAudio />
@@ -203,7 +203,7 @@ export default function Page({ params }) {
                         <div className="">Listen</div>
                       </button>
                     </div>
-                    <div className="inner-book__bookmark  flex items-center gap-2 text-[#0365f2] hover:text-[#416dac] font-semibold mb-10">
+                    <div className="inner-book__bookmark  flex items-center gap-2 text-[#0365f2]  font-semibold mb-10">
                       <div className="inner-book__bookmark--icon text-xl ">
                         <BsBookmark />
                       </div>
