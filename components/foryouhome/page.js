@@ -138,7 +138,7 @@ export default function ForYouHome({id, title, author, audioLink, imageLink}) {
                   Selected just for you
                 </div>
                 <div
-                  className="rounded bg-[rgb(251,239,214)] mt-4 mb-6 md:h-48 cursor-pointer"
+                  className="rounded bg-[rgb(251,239,214)] mt-4 mb-6 md:h-48 cursor-pointer w-[70%]"
                   onClick={() => toggleBook(select.id)}
                 >
                   <div className=" md:flex p-6 md:p-6">
@@ -149,7 +149,7 @@ export default function ForYouHome({id, title, author, audioLink, imageLink}) {
                       </h1>
                     </div>
                     <div className="md:h-36 w-[1px] bg-[#bac8ce] mx-7 "></div>
-                    <div className="flex md:w-[60%]  ">
+                    <div className="flex md:w-[60%] gap-4 ">
                       <div className="p-1 h-36">
                         <img
                           className="w-[100%] h-[100%]"
@@ -157,7 +157,7 @@ export default function ForYouHome({id, title, author, audioLink, imageLink}) {
                           alt="The Lean Startup"
                         />
                       </div>
-                      <div className="w-auto pl-4">
+                      <div className="w-auto">
                         <div className="font-bold pb-1">{select.title}</div>
                         <div className="text-sm pb-4">{select.author}</div>
                         <div className="flex">
