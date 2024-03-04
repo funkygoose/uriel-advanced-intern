@@ -1,4 +1,4 @@
-import { closeLoginModal, openLoginModal } from "@/lib/modalSlice/page";
+import { closeLoginModal, openLoginModal } from "/lib/modalSlice/page";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUser } from "react-icons/fa";
