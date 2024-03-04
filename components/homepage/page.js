@@ -8,7 +8,7 @@ import { RiLeafLine } from "react-icons/ri";
 import Link from "next/link";
 import Image from "next/image";
 import LoginModal from "../modals/loginmodal/page";
-import { openLoginModal } from "@/lib/modalSlice/page";
+import { openLoginModal } from "@/lib/modalSlice/page.js";
 import { useDispatch } from "react-redux";
 export default function HomePage() {
   const [greenText, setGreenText] = useState(0);
