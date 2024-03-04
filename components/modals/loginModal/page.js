@@ -67,9 +67,6 @@ export default function LoginModal() {
     }
   }
 
-  function handleClose() {
-    () => dispatch(closeLoginModal())
-  }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
