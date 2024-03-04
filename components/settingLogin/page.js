@@ -1,9 +1,8 @@
 "use client";
 
-import { openLoginModal } from "@/lib/modalSlice/page";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import LoginModal from "../modals/loginmodal/page";
+import LoginModal from "/components/modals/loginmodal/page";
 
 export default function Settings() {
   const user = useSelector((state) => state.user);

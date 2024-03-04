@@ -1,8 +1,8 @@
 "use client";
 
-import LoginModal from "@/components/modals/loginmodal/page";
-import SideBar from "@/components/modals/sidebar/page";
-import SearchBar from "@/components/searchbar/page";
+import LoginModal from "/components/modals/loginmodal/page";
+import SideBar from "/components/modals/sidebar/page";
+import SearchBar from "/components/searchbar/page";
 import { Skeleton } from "@mui/material";
 import axios from "axios";
 import Image from "next/image";
